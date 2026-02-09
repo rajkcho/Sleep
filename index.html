@@ -841,6 +841,302 @@
             margin: 0 auto;
         }
 
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease 0.1s forwards;
+            opacity: 0;
+        }
+
+        .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            max-width: 500px;
+            animation: fadeInUp 0.6s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 48px;
+            animation: fadeInUp 0.6s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .btn-lg {
+            padding: 18px 32px;
+            font-size: 1.1rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            animation: fadeInUp 0.6s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-stat-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            animation: fadeInRight 0.8s ease 0.3s forwards;
+            opacity: 0;
+        }
+
+        .hero-invoice-preview {
+            position: relative;
+        }
+
+        .mini-invoice {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            width: 320px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255,255,255,0.1);
+            position: relative;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .mini-invoice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .mini-invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .mini-invoice-logo {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 10px;
+        }
+
+        .mini-invoice-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #6366F1;
+        }
+
+        .mini-invoice-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .mini-line {
+            height: 12px;
+            background: #E5E7EB;
+            border-radius: 6px;
+        }
+
+        .mini-line.short {
+            width: 60%;
+        }
+
+        .mini-invoice-total {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1a1a1a;
+            text-align: right;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background: rgba(99, 102, 241, 0.02);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary-light);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Scroll to functions */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
         /* Mobile Responsive */
         @media (max-width: 1024px) {
             .main-container {
@@ -853,6 +1149,60 @@
 
             .nav-links {
                 display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-subtitle {
+                margin: 0 auto 32px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .mini-invoice {
+                width: 260px;
+                padding: 24px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
             }
         }
 
@@ -955,6 +1305,187 @@
             border-color: var(--primary);
             color: white;
         }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 100px 0;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .testimonial-stars {
+            font-size: 1rem;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: var(--gradient-1);
+            text-align: center;
+        }
+
+        .cta-container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 32px;
+        }
+
+        .cta-section .btn-primary {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .cta-section .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            margin-top: 8px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer-copy a {
+            color: var(--primary-light);
+            text-decoration: none;
+        }
+
+        /* Responsive Testimonials */
+        @media (max-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -975,8 +1506,100 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">🚀 Free Forever • No Sign Up Required</div>
+                <h1 class="hero-title">Create <span class="gradient-text">Beautiful Invoices</span> in Seconds</h1>
+                <p class="hero-subtitle">The fastest way for freelancers and small businesses to create professional invoices. Free, no sign up, instant PDF download.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary btn-lg" onclick="scrollToBuilder()">
+                        Create Invoice Free →
+                    </button>
+                    <button class="btn btn-secondary btn-lg" onclick="scrollToFeatures()">
+                        See Features
+                    </button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">10K+</span>
+                        <span class="hero-stat-label">Invoices Created</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">$2M+</span>
+                        <span class="hero-stat-label">Value Invoiced</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-value">100%</span>
+                        <span class="hero-stat-label">Free</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-invoice-preview">
+                    <div class="mini-invoice">
+                        <div class="mini-invoice-header">
+                            <div class="mini-invoice-logo"></div>
+                            <div class="mini-invoice-title">INVOICE</div>
+                        </div>
+                        <div class="mini-invoice-lines">
+                            <div class="mini-line"></div>
+                            <div class="mini-line short"></div>
+                            <div class="mini-line"></div>
+                        </div>
+                        <div class="mini-invoice-total">$2,450.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="features-container">
+            <div class="section-header">
+                <div class="section-badge">✨ Features</div>
+                <h2 class="section-title">Everything You Need to Get Paid</h2>
+                <p class="section-subtitle">Professional invoicing made simple, fast, and completely free.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>5 Beautiful Templates</h3>
+                    <p>Choose from professionally designed color schemes that make your invoices stand out.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Instant PDF Download</h3>
+                    <p>Generate and download your invoice as a high-quality PDF in one click.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Works on Any Device</h3>
+                    <p>Create invoices from your phone, tablet, or desktop - anywhere, anytime.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>No Sign Up Required</h3>
+                    <p>Start creating invoices immediately. No account needed, no data stored on servers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Auto Calculations</h3>
+                    <p>Automatic subtotals, taxes, discounts, and grand totals. No math required.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏢</div>
+                    <h3>Your Branding</h3>
+                    <p>Upload your logo and customize every invoice to match your brand.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Main App -->
-    <div class="main-container">
+    <div class="main-container" id="builder">
         <!-- Form Panel -->
         <div class="form-panel">
             <!-- Template Selector -->
@@ -1264,6 +1887,81 @@
         </div>
     </div>
 
+    <!-- Testimonials Section -->
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <div class="section-header">
+                <div class="section-badge">💬 Testimonials</div>
+                <h2 class="section-title">Loved by Freelancers</h2>
+                <p class="section-subtitle">See what our users are saying about InvoiceFlow.</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Finally, an invoice generator that doesn't require a signup! I was able to send my first invoice within 2 minutes."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">S</div>
+                        <div>
+                            <div class="testimonial-name">Sarah M.</div>
+                            <div class="testimonial-role">Graphic Designer</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"The templates are gorgeous and my clients love receiving professional invoices. Game changer for my consulting business."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">M</div>
+                        <div>
+                            <div class="testimonial-name">Marcus J.</div>
+                            <div class="testimonial-role">Business Consultant</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"I've tried at least 5 other invoice tools. InvoiceFlow is by far the easiest to use and looks the most professional."</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">L</div>
+                        <div>
+                            <div class="testimonial-name">Lisa T.</div>
+                            <div class="testimonial-role">Freelance Writer</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Ready to Get Paid Faster?</h2>
+            <p class="cta-subtitle">Create your first professional invoice in under 2 minutes. No sign up required.</p>
+            <button class="btn btn-primary btn-lg" onclick="scrollToBuilder()">
+                Create Free Invoice →
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">📄 InvoiceFlow</div>
+                <p>The fastest way to create beautiful invoices. Free forever.</p>
+            </div>
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="mailto:hello@invoiceflow.app">Contact</a>
+            </div>
+            <div class="footer-copy">
+                © 2025 InvoiceFlow. Built by <a href="https://github.com/rajkcho" target="_blank">Raj Chopra</a>
+            </div>
+        </div>
+    </footer>
+
     <!-- Toast -->
     <div class="toast" id="toast">
         <span id="toastMessage"></span>
@@ -1533,7 +2231,12 @@
 
         // Scroll to builder
         function scrollToBuilder() {
-            document.querySelector('.form-panel').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('builder').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Scroll to features
+        function scrollToFeatures() {
+            document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
         }
 
         // Show upgrade modal
