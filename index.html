@@ -1744,7 +1744,8 @@
             <div class="preview-header">
                 <h2 class="preview-title">📄 Preview</h2>
                 <div class="preview-actions">
-                    <button class="btn btn-secondary" onclick="copyLink()">🔗 Copy Link</button>
+                    <button class="btn btn-secondary" onclick="saveDraft()">💾 Save Draft</button>
+                    <button class="btn btn-secondary" onclick="emailInvoice()">📧 Email</button>
                     <button class="btn btn-primary" onclick="downloadPDF()">⬇️ Download PDF</button>
                 </div>
             </div>
@@ -2261,6 +2262,168 @@
 
         // Initialize template styles
         setTemplate('indigo');
+
+        // ============================================
+        // LOCAL STORAGE & EMAIL FEATURES
+        // ============================================
+
+        // Save draft to localStorage
+        function saveDraft() {
+            const draft = {
+                template: currentTemplate,
+                yourName: document.getElementById('yourName').value,
+                yourEmail: document.getElementById('yourEmail').value,
+                yourAddress: document.getElementById('yourAddress').value,
+                clientName: document.getElementById('clientName').value,
+                clientEmail: document.getElementById('clientEmail').value,
+                clientAddress: document.getElementById('clientAddress').value,
+                invoiceNumber: document.getElementById('invoiceNumber').value,
+                currency: document.getElementById('currency').value,
+                issueDate: document.getElementById('issueDate').value,
+                dueDate: document.getElementById('dueDate').value,
+                taxRate: document.getElementById('taxRate').value,
+                discountRate: document.getElementById('discountRate').value,
+                notes: document.getElementById('notes').value,
+                paymentInfo: document.getElementById('paymentInfo').value,
+                items: getItems(),
+                logoDataUrl: logoDataUrl,
+                savedAt: new Date().toISOString()
+            };
+
+            localStorage.setItem('invoiceflow_draft', JSON.stringify(draft));
+            showToast('Draft saved! ✓', 'success');
+        }
+
+        // Get all items from form
+        function getItems() {
+            const items = [];
+            document.querySelectorAll('.item-row').forEach(row => {
+                items.push({
+                    desc: row.querySelector('.item-desc').value,
+                    qty: row.querySelector('.item-qty').value,
+                    price: row.querySelector('.item-price').value
+                });
+            });
+            return items;
+        }
+
+        // Load draft from localStorage
+        function loadDraft() {
+            const saved = localStorage.getItem('invoiceflow_draft');
+            if (!saved) return false;
+
+            try {
+                const draft = JSON.parse(saved);
+                
+                // Set template
+                if (draft.template) setTemplate(draft.template);
+                
+                // Set form values
+                if (draft.yourName) document.getElementById('yourName').value = draft.yourName;
+                if (draft.yourEmail) document.getElementById('yourEmail').value = draft.yourEmail;
+                if (draft.yourAddress) document.getElementById('yourAddress').value = draft.yourAddress;
+                if (draft.clientName) document.getElementById('clientName').value = draft.clientName;
+                if (draft.clientEmail) document.getElementById('clientEmail').value = draft.clientEmail;
+                if (draft.clientAddress) document.getElementById('clientAddress').value = draft.clientAddress;
+                if (draft.invoiceNumber) document.getElementById('invoiceNumber').value = draft.invoiceNumber;
+                if (draft.currency) document.getElementById('currency').value = draft.currency;
+                if (draft.issueDate) document.getElementById('issueDate').value = draft.issueDate;
+                if (draft.dueDate) document.getElementById('dueDate').value = draft.dueDate;
+                if (draft.taxRate) document.getElementById('taxRate').value = draft.taxRate;
+                if (draft.discountRate) document.getElementById('discountRate').value = draft.discountRate;
+                if (draft.notes) document.getElementById('notes').value = draft.notes;
+                if (draft.paymentInfo) document.getElementById('paymentInfo').value = draft.paymentInfo;
+                
+                // Set logo
+                if (draft.logoDataUrl) {
+                    logoDataUrl = draft.logoDataUrl;
+                    const uploadDiv = document.getElementById('logoUpload');
+                    uploadDiv.innerHTML = `
+                        <input type="file" accept="image/*" onchange="handleLogoUpload(event)">
+                        <img src="${logoDataUrl}" class="logo-preview">
+                        <div class="logo-upload-text" style="margin-top: 8px;">Click to change</div>
+                    `;
+                }
+                
+                // Set items
+                if (draft.items && draft.items.length > 0) {
+                    const itemsList = document.getElementById('itemsList');
+                    itemsList.innerHTML = '';
+                    
+                    draft.items.forEach(item => {
+                        const row = document.createElement('div');
+                        row.className = 'item-row';
+                        row.innerHTML = `
+                            <input type="text" placeholder="Description" class="item-desc" value="${item.desc || ''}" oninput="updatePreview()">
+                            <input type="number" placeholder="Qty" class="item-qty" value="${item.qty || 1}" oninput="updatePreview()">
+                            <input type="number" placeholder="Price" class="item-price" value="${item.price || ''}" oninput="updatePreview()">
+                            <button class="remove-item-btn" onclick="removeItem(this)">×</button>
+                        `;
+                        itemsList.appendChild(row);
+                    });
+                }
+
+                updatePreview();
+                return true;
+            } catch (e) {
+                console.error('Failed to load draft:', e);
+                return false;
+            }
+        }
+
+        // Email invoice
+        function emailInvoice() {
+            const clientEmail = document.getElementById('clientEmail').value;
+            const invoiceNumber = document.getElementById('invoiceNumber').value || 'Invoice';
+            const yourName = document.getElementById('yourName').value || 'Your Company';
+            const total = document.getElementById('previewTotal').textContent;
+            const dueDate = document.getElementById('previewDueDate').textContent;
+            
+            const subject = encodeURIComponent(`${invoiceNumber} from ${yourName}`);
+            const body = encodeURIComponent(
+`Hi,
+
+Please find attached ${invoiceNumber} for ${total}.
+
+Payment is due by ${dueDate}.
+
+Thank you for your business!
+
+Best regards,
+${yourName}
+
+---
+Invoice created with InvoiceFlow
+https://rajkcho.github.io/Sleep/`
+            );
+            
+            const mailtoLink = `mailto:${clientEmail}?subject=${subject}&body=${body}`;
+            window.open(mailtoLink, '_blank');
+            
+            showToast('Email client opened! Attach the PDF.', 'success');
+        }
+
+        // Check for saved draft on load
+        document.addEventListener('DOMContentLoaded', () => {
+            const hasDraft = loadDraft();
+            if (hasDraft) {
+                showToast('Loaded your saved draft', 'success');
+            }
+        });
+
+        // Auto-save every 60 seconds
+        setInterval(() => {
+            const yourName = document.getElementById('yourName').value;
+            const clientName = document.getElementById('clientName').value;
+            if (yourName || clientName) {
+                localStorage.setItem('invoiceflow_autosave', JSON.stringify({
+                    template: currentTemplate,
+                    yourName: document.getElementById('yourName').value,
+                    yourEmail: document.getElementById('yourEmail').value,
+                    items: getItems()
+                }));
+            }
+        }, 60000);
     </script>
 </body>
 </html>
