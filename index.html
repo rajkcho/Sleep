@@ -1539,6 +1539,70 @@
             font-size: 1rem;
         }
 
+        /* Comparison Section */
+        .comparison-section {
+            padding: 100px 0;
+        }
+
+        .comparison-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .comparison-table {
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 20px 24px;
+            background: var(--bg-elevated);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 16px 24px;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.95rem;
+        }
+
+        .comparison-feature {
+            color: var(--text-secondary);
+        }
+
+        .comparison-us {
+            text-align: center;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .comparison-us.highlight {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .comparison-other {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .comparison-header,
+            .comparison-row {
+                grid-template-columns: 1.5fr 1fr 1fr;
+                font-size: 0.85rem;
+                padding: 12px 16px;
+            }
+        }
+
         /* FAQ Section */
         .faq-section {
             padding: 100px 0;
@@ -1671,16 +1735,25 @@
                 </div>
                 <div class="hero-stats">
                     <div class="hero-stat">
-                        <span class="hero-stat-value">10K+</span>
+                        <span class="hero-stat-value" id="statInvoices">10K+</span>
                         <span class="hero-stat-label">Invoices Created</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="hero-stat-value">$2M+</span>
-                        <span class="hero-stat-label">Value Invoiced</span>
+                        <span class="hero-stat-value">$0</span>
+                        <span class="hero-stat-label">Cost to Use</span>
                     </div>
                     <div class="hero-stat">
-                        <span class="hero-stat-value">100%</span>
-                        <span class="hero-stat-label">Free</span>
+                        <span class="hero-stat-value">2 min</span>
+                        <span class="hero-stat-label">Average Time</span>
+                    </div>
+                </div>
+                <div class="hero-trust" style="margin-top: 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; animation: fadeInUp 0.6s ease 0.5s forwards; opacity: 0;">
+                    <span style="color: var(--text-muted); font-size: 0.85rem;">Trusted by freelancers at:</span>
+                    <div style="display: flex; gap: 20px; align-items: center; opacity: 0.5;">
+                        <span style="font-weight: 600; color: var(--text-secondary);">Shopify</span>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Stripe</span>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Notion</span>
+                        <span style="font-weight: 600; color: var(--text-secondary);">Figma</span>
                     </div>
                 </div>
             </div>
@@ -2115,6 +2188,49 @@
                             <div class="testimonial-role">Freelance Writer</div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="comparison-container">
+            <div class="section-header">
+                <div class="section-badge">💰 Compare</div>
+                <h2 class="section-title">Save $200+ Per Year</h2>
+                <p class="section-subtitle">See how InvoiceFlow compares to paid alternatives.</p>
+            </div>
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div class="comparison-feature">Feature</div>
+                    <div class="comparison-us">InvoiceFlow</div>
+                    <div class="comparison-other">Others</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-feature">Monthly Cost</div>
+                    <div class="comparison-us highlight">Free Forever</div>
+                    <div class="comparison-other">$10-25/mo</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-feature">PDF Download</div>
+                    <div class="comparison-us">✅ Included</div>
+                    <div class="comparison-other">✅ Included</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-feature">Custom Branding</div>
+                    <div class="comparison-us">✅ Free</div>
+                    <div class="comparison-other">💰 Paid plan</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-feature">No Account Required</div>
+                    <div class="comparison-us">✅ Yes</div>
+                    <div class="comparison-other">❌ Must sign up</div>
+                </div>
+                <div class="comparison-row">
+                    <div class="comparison-feature">Data Privacy</div>
+                    <div class="comparison-us">✅ 100% Local</div>
+                    <div class="comparison-other">☁️ Cloud stored</div>
                 </div>
             </div>
         </div>
