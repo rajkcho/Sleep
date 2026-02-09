@@ -1808,13 +1808,25 @@
                         <input type="text" id="invoiceNumber" placeholder="INV-001" oninput="updatePreview()">
                     </div>
                     <div class="form-group">
-                        <label>Currency</label>
-                        <select id="currency" onchange="updatePreview()">
-                            <option value="$">USD ($)</option>
-                            <option value="C$">CAD (C$)</option>
-                            <option value="€">EUR (€)</option>
-                            <option value="£">GBP (£)</option>
+                        <label>Status</label>
+                        <select id="invoiceStatus" onchange="updatePreview()">
+                            <option value="pending">⏳ Pending</option>
+                            <option value="sent">📤 Sent</option>
+                            <option value="paid">✅ Paid</option>
+                            <option value="overdue">⚠️ Overdue</option>
                         </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group full">
+                        <label>Currency</label>
+                        <div class="currency-select">
+                            <button type="button" class="currency-option active" data-currency="$" onclick="setCurrency('$', this)">$ USD</button>
+                            <button type="button" class="currency-option" data-currency="C$" onclick="setCurrency('C$', this)">C$ CAD</button>
+                            <button type="button" class="currency-option" data-currency="€" onclick="setCurrency('€', this)">€ EUR</button>
+                            <button type="button" class="currency-option" data-currency="£" onclick="setCurrency('£', this)">£ GBP</button>
+                            <button type="button" class="currency-option" data-currency="₹" onclick="setCurrency('₹', this)">₹ INR</button>
+                        </div>
                     </div>
                 </div>
                 <div class="form-row">
@@ -1921,7 +1933,7 @@
                     </div>
                     <div class="invoice-date-item">
                         <div class="invoice-date-label">Status</div>
-                        <div class="invoice-date-value" style="color: #F59E0B;">Pending</div>
+                        <div class="invoice-date-value" id="previewStatus" style="color: #F59E0B;">Pending</div>
                     </div>
                 </div>
 
@@ -2173,6 +2185,17 @@
             return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
         }
 
+        let selectedCurrency = '$';
+
+        // Set currency
+        function setCurrency(currency, btn) {
+            selectedCurrency = currency;
+            document.querySelectorAll('.currency-option').forEach(opt => {
+                opt.classList.toggle('active', opt.dataset.currency === currency);
+            });
+            updatePreview();
+        }
+
         // Template switching
         function setTemplate(template) {
             currentTemplate = template;
@@ -2261,7 +2284,7 @@
 
         // Update preview
         function updatePreview() {
-            const currency = document.getElementById('currency').value;
+            const currency = selectedCurrency;
 
             // Company info
             const yourName = document.getElementById('yourName').value || 'Your Company';
@@ -2294,6 +2317,19 @@
             document.getElementById('previewInvoiceNumber').textContent = '#' + invoiceNumber;
             document.getElementById('previewIssueDate').textContent = formatDate(issueDate);
             document.getElementById('previewDueDate').textContent = formatDate(dueDate);
+
+            // Status
+            const status = document.getElementById('invoiceStatus').value;
+            const statusEl = document.getElementById('previewStatus');
+            const statusConfig = {
+                pending: { text: 'Pending', color: '#F59E0B' },
+                sent: { text: 'Sent', color: '#3B82F6' },
+                paid: { text: 'Paid', color: '#10B981' },
+                overdue: { text: 'Overdue', color: '#EF4444' }
+            };
+            const statusInfo = statusConfig[status] || statusConfig.pending;
+            statusEl.textContent = statusInfo.text;
+            statusEl.style.color = statusInfo.color;
 
             // Items
             const items = [];
