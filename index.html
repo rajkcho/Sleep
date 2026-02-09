@@ -1507,6 +1507,38 @@
             color: var(--primary-light);
         }
 
+        /* Payment Tips */
+        .payment-tips {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .payment-tip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .payment-tip:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        .payment-tip-icon {
+            font-size: 1rem;
+        }
+
         /* FAQ Section */
         .faq-section {
             padding: 100px 0;
@@ -1875,6 +1907,20 @@
                 <div class="form-group">
                     <label>Payment Instructions</label>
                     <textarea id="paymentInfo" placeholder="Bank: ABC Bank&#10;Account: 1234567890&#10;Or pay via PayPal: pay@example.com" oninput="updatePreview()"></textarea>
+                </div>
+                <div class="payment-tips">
+                    <div class="payment-tip" onclick="insertPaymentTip('stripe')">
+                        <span class="payment-tip-icon">💳</span>
+                        <span class="payment-tip-text">Add Stripe link</span>
+                    </div>
+                    <div class="payment-tip" onclick="insertPaymentTip('paypal')">
+                        <span class="payment-tip-icon">🅿️</span>
+                        <span class="payment-tip-text">Add PayPal link</span>
+                    </div>
+                    <div class="payment-tip" onclick="insertPaymentTip('bank')">
+                        <span class="payment-tip-icon">🏦</span>
+                        <span class="payment-tip-text">Add bank details</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -2600,6 +2646,28 @@
                 console.error('Failed to load draft:', e);
                 return false;
             }
+        }
+
+        // Insert payment tip
+        function insertPaymentTip(type) {
+            const paymentField = document.getElementById('paymentInfo');
+            let template = '';
+            
+            switch (type) {
+                case 'stripe':
+                    template = 'Pay securely online: https://pay.stripe.com/your-link\n\nAccepted: Visa, Mastercard, Amex';
+                    break;
+                case 'paypal':
+                    template = 'PayPal: your-email@example.com\n\nOr click: https://paypal.me/yourusername';
+                    break;
+                case 'bank':
+                    template = 'Bank Transfer:\nBank: [Your Bank Name]\nAccount Name: [Your Name]\nAccount Number: [XXXX-XXXX-XXXX]\nRouting/Transit: [XXXXX]';
+                    break;
+            }
+            
+            paymentField.value = template;
+            updatePreview();
+            showToast('Payment template added!', 'success');
         }
 
         // Email invoice
