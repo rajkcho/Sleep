@@ -1465,6 +1465,58 @@
             text-decoration: none;
         }
 
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .quick-action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .quick-action-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        /* Print styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .invoice-preview, .invoice-preview * {
+                visibility: visible;
+            }
+            
+            .invoice-preview {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+            }
+            
+            .invoice-watermark {
+                display: none !important;
+            }
+        }
+
         /* Responsive Testimonials */
         @media (max-width: 1024px) {
             .testimonials-grid {
@@ -1602,6 +1654,18 @@
     <div class="main-container" id="builder">
         <!-- Form Panel -->
         <div class="form-panel">
+            <!-- Quick Actions -->
+            <div class="form-section">
+                <div class="quick-actions">
+                    <button class="quick-action-btn" onclick="loadSampleData()">
+                        ✨ Load Sample Data
+                    </button>
+                    <button class="quick-action-btn" onclick="clearForm()">
+                        🗑️ Clear All
+                    </button>
+                </div>
+            </div>
+
             <!-- Template Selector -->
             <div class="form-section">
                 <div class="form-section-title">🎨 Template</div>
@@ -2401,6 +2465,98 @@ https://rajkcho.github.io/Sleep/`
             window.open(mailtoLink, '_blank');
             
             showToast('Email client opened! Attach the PDF.', 'success');
+        }
+
+        // Load sample data for demo
+        function loadSampleData() {
+            document.getElementById('yourName').value = 'Acme Design Studio';
+            document.getElementById('yourEmail').value = 'hello@acmedesign.co';
+            document.getElementById('yourAddress').value = '123 Creative Street\nToronto, ON M5V 1A1\nCanada';
+            document.getElementById('clientName').value = 'TechStart Inc.';
+            document.getElementById('clientEmail').value = 'billing@techstart.io';
+            document.getElementById('clientAddress').value = '456 Innovation Drive\nSan Francisco, CA 94102\nUSA';
+            document.getElementById('currency').value = '$';
+            document.getElementById('taxRate').value = '13';
+            document.getElementById('discountRate').value = '5';
+            document.getElementById('notes').value = 'Thank you for your business! We appreciate the opportunity to work with TechStart Inc.';
+            document.getElementById('paymentInfo').value = 'Bank: TD Canada Trust\nAccount: 1234567890\nTransit: 12345\n\nOr pay via PayPal: payments@acmedesign.co';
+
+            // Set items
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = '';
+            
+            const sampleItems = [
+                { desc: 'Website Redesign - Discovery Phase', qty: 1, price: 2500 },
+                { desc: 'UI/UX Design - 5 Pages', qty: 5, price: 400 },
+                { desc: 'Development & Implementation', qty: 40, price: 75 },
+                { desc: 'Quality Assurance & Testing', qty: 8, price: 60 }
+            ];
+            
+            sampleItems.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <input type="text" placeholder="Description" class="item-desc" value="${item.desc}" oninput="updatePreview()">
+                    <input type="number" placeholder="Qty" class="item-qty" value="${item.qty}" oninput="updatePreview()">
+                    <input type="number" placeholder="Price" class="item-price" value="${item.price}" oninput="updatePreview()">
+                    <button class="remove-item-btn" onclick="removeItem(this)">×</button>
+                `;
+                itemsList.appendChild(row);
+            });
+
+            updatePreview();
+            showToast('Sample data loaded! ✓', 'success');
+        }
+
+        // Clear form
+        function clearForm() {
+            if (!confirm('Clear all invoice data? This cannot be undone.')) return;
+
+            document.getElementById('yourName').value = '';
+            document.getElementById('yourEmail').value = '';
+            document.getElementById('yourAddress').value = '';
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientEmail').value = '';
+            document.getElementById('clientAddress').value = '';
+            document.getElementById('taxRate').value = '0';
+            document.getElementById('discountRate').value = '0';
+            document.getElementById('notes').value = '';
+            document.getElementById('paymentInfo').value = '';
+            
+            logoDataUrl = null;
+            const uploadDiv = document.getElementById('logoUpload');
+            uploadDiv.innerHTML = `
+                <input type="file" accept="image/*" onchange="handleLogoUpload(event)">
+                <div class="logo-upload-icon">📷</div>
+                <div class="logo-upload-text">Click to upload logo</div>
+            `;
+
+            // Reset items
+            const itemsList = document.getElementById('itemsList');
+            itemsList.innerHTML = `
+                <div class="item-row">
+                    <input type="text" placeholder="Description" class="item-desc" oninput="updatePreview()">
+                    <input type="number" placeholder="Qty" class="item-qty" value="1" oninput="updatePreview()">
+                    <input type="number" placeholder="Price" class="item-price" oninput="updatePreview()">
+                    <button class="remove-item-btn" onclick="removeItem(this)">×</button>
+                </div>
+            `;
+
+            // Generate new invoice number
+            document.getElementById('invoiceNumber').value = 'INV-' + String(Math.floor(Math.random() * 9000) + 1000);
+            
+            // Reset dates
+            const today = new Date();
+            const dueDate = new Date(today);
+            dueDate.setDate(dueDate.getDate() + 30);
+            document.getElementById('issueDate').value = formatDateForInput(today);
+            document.getElementById('dueDate').value = formatDateForInput(dueDate);
+
+            // Clear localStorage
+            localStorage.removeItem('invoiceflow_draft');
+
+            updatePreview();
+            showToast('Form cleared', 'success');
         }
 
         // Check for saved draft on load
